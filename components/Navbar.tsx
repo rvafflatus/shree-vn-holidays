@@ -1,14 +1,21 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // Image कंपोनेंट इम्पोर्ट किया
 
 const Navbar = () => {
   return (
     <nav className="fixed w-full z-50 backdrop-blur-md bg-white/30 border-b border-white/20 p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* लोगो का हिस्सा */}
-        <Link href="/" className="text-2xl font-bold text-blue-900">
-          Shree VN
+        <Link href="/" className="flex items-center">
+          <Image 
+            src="/logo.png" // सुनिश्चित करें कि लोगो फाइल public फोल्डर में है
+            alt="Shree VN Logo" 
+            width={120} // अपनी जरूरत के अनुसार साइज बदलें
+            height={50}
+            className="object-contain"
+          />
         </Link>
 
         {/* नेविगेशन लिंक्स */}
