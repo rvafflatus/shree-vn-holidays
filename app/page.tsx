@@ -48,13 +48,14 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 pt-20"> {/* Fixed navbar के नीचे कंटेंट को शिफ्ट करने के लिए pt-20 */}
+    <div className="min-h-screen flex flex-col bg-gray-50 pt-20">
       
-      {/* --- HERO SECTION --- */}
+      {/* --- HERO SECTION WITH NATURE GREEN & SCENIC BACKGROUND --- */}
       <section 
-        className="relative min-h-[85vh] flex items-center justify-center bg-cover bg-center bg-no-report px-6 py-20"
+        className="relative min-h-[85vh] flex items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-20"
         style={{
-          backgroundImage: `linear-gradient(rgba(11, 19, 43, 0.85), rgba(11, 19, 43, 0.75)), url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=1600&auto=format&fit=crop')`
+          // यहाँ नेचर/फॉरेस्ट की हाई-क्वालिटी इमेज के साथ एक बैलेंस्ड डार्क-नेचुरल ओवरले दिया गया है ताकि टेक्स्ट साफ़ चमके
+          backgroundImage: `linear-gradient(rgba(10, 40, 25, 0.75), rgba(5, 25, 15, 0.8)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1600&auto=format&fit=crop')`
         }}
       >
         <div className="text-center text-white max-w-4xl z-10 flex flex-col items-center">
