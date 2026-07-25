@@ -6,7 +6,6 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentSloganIndex, setCurrentSloganIndex] = useState(0);
 
-  // डायनेमिक स्लोगन्स की लिस्ट जो एनिमेट होगी
   const slogans = [
     "Explore the Unseen Adventure Awaits",
     "Discover Breathtaking Mountains & Valleys",
@@ -14,15 +13,13 @@ export default function Home() {
     "Unforgettable Journeys Crafted Just For You"
   ];
 
-  // हर 3 सेकंड में स्लोगन बदलने का इफ़ेक्ट (Animation)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSloganIndex((prevIndex) => (prevIndex + 1) % slogans.length);
-    }, 3000);
+    }, 3500);
     return () => clearInterval(interval);
   }, [slogans.length]);
 
-  // Sample Tour Packages
   const tourPackages = [
     {
       id: 1,
@@ -51,34 +48,34 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 pt-20"> {/* Fixed navbar के नीचे कंटेंट को शिफ्ट करने के लिए pt-20 */}
       
-      {/* --- HERO SECTION WITH ADVENTURE TRAVEL BACKGROUND & ANIMATED TEXT --- */}
+      {/* --- HERO SECTION --- */}
       <section 
-        className="relative h-[85vh] flex items-center justify-center bg-cover bg-center bg-no-repeat transition-all duration-1000"
+        className="relative min-h-[85vh] flex items-center justify-center bg-cover bg-center bg-no-report px-6 py-20"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=1600&auto=format&fit=crop')` // एडवेंचर कैंपिंग/ट्रैवल लुक इमेज[cite: 2]
+          backgroundImage: `linear-gradient(rgba(11, 19, 43, 0.85), rgba(11, 19, 43, 0.75)), url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=1600&auto=format&fit=crop')`
         }}
       >
-        <div className="text-center text-white px-6 max-w-4xl z-10">
-          <span className="bg-orange-600 text-white text-xs md:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-4 shadow-lg animate-pulse">
+        <div className="text-center text-white max-w-4xl z-10 flex flex-col items-center">
+          <span className="bg-orange-600 text-white text-xs md:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 shadow-md">
             Welcome to Shree VN Holidays
           </span>
           
-          {/* डायनेमिक एनिमेटेड हेडिंग */}
-          <h1 className="text-3xl md:text-6xl font-extrabold mb-6 tracking-tight drop-shadow-lg min-h-[100px] md:min-h-[140px] flex items-center justify-center transition-opacity duration-500">
-            <span className="text-orange-400">
+          {/* डायनेमिक एनिमेटेड स्लोगन */}
+          <h1 className="text-3xl md:text-6xl font-extrabold mb-6 tracking-tight min-h-[90px] md:min-h-[120px] flex items-center justify-center drop-shadow-lg">
+            <span className="text-orange-400 transition-all duration-700">
               {slogans[currentSloganIndex]}
             </span>
           </h1>
 
-          <p className="text-base md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto font-light drop-shadow">
-            Your trusted partner for custom tour packages, thrilling mountain treks, and seamless family getaways.
+          <p className="text-base md:text-xl text-gray-200 mb-8 max-w-2xl font-light leading-relaxed drop-shadow">
+            Your trusted professional partner for custom tour packages, thrilling mountain treks, and seamless family getaways.
           </p>
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-xl font-bold shadow-2xl transition transform hover:-translate-y-1 text-lg border-2 border-orange-500"
+            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-xl font-bold shadow-2xl transition transform hover:-translate-y-1 text-lg border border-orange-500"
           >
             Plan Your Adventure Now
           </button>
@@ -115,7 +112,7 @@ export default function Home() {
                   </div>
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="bg-blue-900 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow"
+                    className="bg-blue-950 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow"
                   >
                     Inquire Now
                   </button>
