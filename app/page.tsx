@@ -1,11 +1,28 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import InquiryModal from '@/components/InquiryModal';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentSloganIndex, setCurrentSloganIndex] = useState(0);
 
-  // Sample Tour Cards Data (आप यहाँ अपनी इमेजेस और डिटेल्स बदल सकते हैं)
+  // डायनेमिक स्लोगन्स की लिस्ट जो एनिमेट होगी
+  const slogans = [
+    "Explore the Unseen Adventure Awaits",
+    "Discover Breathtaking Mountains & Valleys",
+    "Plan Your Dream Family Holidays Today",
+    "Unforgettable Journeys Crafted Just For You"
+  ];
+
+  // हर 3 सेकंड में स्लोगन बदलने का इफ़ेक्ट (Animation)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSloganIndex((prevIndex) => (prevIndex + 1) % slogans.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [slogans.length]);
+
+  // Sample Tour Packages
   const tourPackages = [
     {
       id: 1,
@@ -36,46 +53,55 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       
-      {/* --- HERO SECTION WITH BACKGROUND IMAGE --- */}
+      {/* --- HERO SECTION WITH ADVENTURE TRAVEL BACKGROUND & ANIMATED TEXT --- */}
       <section 
-        className="relative h-[80vh] flex items-center justify-center bg-cover bg-center bg-no-repeat"
+        className="relative h-[85vh] flex items-center justify-center bg-cover bg-center bg-no-repeat transition-all duration-1000"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1600&auto=format&fit=crop')`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=1600&auto=format&fit=crop')` // एडवेंचर कैंपिंग/ट्रैवल लुक इमेज[cite: 2]
         }}
       >
         <div className="text-center text-white px-6 max-w-4xl z-10">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-md">
-            Explore the World with <span className="text-orange-400">Shree VN Holidays</span>
+          <span className="bg-orange-600 text-white text-xs md:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-4 shadow-lg animate-pulse">
+            Welcome to Shree VN Holidays
+          </span>
+          
+          {/* डायनेमिक एनिमेटेड हेडिंग */}
+          <h1 className="text-3xl md:text-6xl font-extrabold mb-6 tracking-tight drop-shadow-lg min-h-[100px] md:min-h-[140px] flex items-center justify-center transition-opacity duration-500">
+            <span className="text-orange-400">
+              {slogans[currentSloganIndex]}
+            </span>
           </h1>
-          <p className="text-lg md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto font-light">
-            Customized Tour Packages, Unforgettable Experiences, and Hassle-free Family Vacations.
+
+          <p className="text-base md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto font-light drop-shadow">
+            Your trusted partner for custom tour packages, thrilling mountain treks, and seamless family getaways.
           </p>
+
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-xl font-bold shadow-2xl transition transform hover:-translate-y-1 text-lg"
+            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-xl font-bold shadow-2xl transition transform hover:-translate-y-1 text-lg border-2 border-orange-500"
           >
-            Plan Your Custom Trip
+            Plan Your Adventure Now
           </button>
         </div>
       </section>
 
       {/* --- FEATURED TOUR CARDS SECTION --- */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
+      <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold text-blue-950 mb-3">Popular Tour Packages</h2>
-          <p className="text-gray-600">Handcrafted holiday packages designed for your comfort and budget.</p>
+          <h2 className="text-3xl font-extrabold text-blue-950 mb-3">Trending Adventure & Holiday Packages</h2>
+          <p className="text-gray-600">Handcrafted itineraries designed for thrill-seekers and family relaxation.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {tourPackages.map((tour) => (
-            <div key={tour.id} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition flex flex-col">
-              <div className="relative h-48 w-full overflow-hidden">
+            <div key={tour.id} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition duration-300 flex flex-col transform hover:-translate-y-1">
+              <div className="relative h-52 w-full overflow-hidden">
                 <img 
                   src={tour.image} 
                   alt={tour.title} 
-                  className="w-full h-full object-cover hover:scale-105 transition duration-300"
+                  className="w-full h-full object-cover hover:scale-110 transition duration-500"
                 />
-                <span className="absolute top-3 right-3 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                <span className="absolute top-3 right-3 bg-orange-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
                   {tour.duration}
                 </span>
               </div>
@@ -89,7 +115,7 @@ export default function Home() {
                   </div>
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-medium text-sm transition"
+                    className="bg-blue-900 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow"
                   >
                     Inquire Now
                   </button>
@@ -101,19 +127,19 @@ export default function Home() {
       </section>
 
       {/* --- WHY CHOOSE US SECTION --- */}
-      <section className="bg-blue-900 text-white py-16 px-6">
+      <section className="bg-blue-950 text-white py-16 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="p-6">
+          <div className="p-6 bg-blue-900/40 rounded-xl border border-blue-800/50">
             <div className="text-orange-400 text-3xl font-bold mb-2">100% Customized</div>
-            <p className="text-gray-300 text-sm">Tailor-made itineraries crafted according to your schedule and choices.</p>
+            <p className="text-gray-300 text-sm">Tailor-made travel routes and luxury or budget stays crafted for your style.</p>
           </div>
-          <div className="p-6">
-            <div className="text-orange-400 text-3xl font-bold mb-2">Family & Senior Friendly</div>
-            <p className="text-gray-300 text-sm">Special care, comfortable travel, and relaxed pacing for senior citizens & kids.</p>
+          <div className="p-6 bg-blue-900/40 rounded-xl border border-blue-800/50">
+            <div className="text-orange-400 text-3xl font-bold mb-2">Safe & Family Friendly</div>
+            <p className="text-gray-300 text-sm">Special care for kids and senior citizens, ensuring secure and peaceful holidays.</p>
           </div>
-          <div className="p-6">
-            <div className="text-orange-400 text-3xl font-bold mb-2">24/7 Support</div>
-            <p className="text-gray-300 text-sm">Dedicated assistance from our team throughout your holiday.</p>
+          <div className="p-6 bg-blue-900/40 rounded-xl border border-blue-800/50">
+            <div className="text-orange-400 text-3xl font-bold mb-2">24/7 Ground Support</div>
+            <p className="text-gray-300 text-sm">Dedicated assistance from our experts all through your trip experience.</p>
           </div>
         </div>
       </section>
