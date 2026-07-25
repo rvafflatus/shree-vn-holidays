@@ -4,11 +4,18 @@ import { supabase } from '@/lib/supabaseClient';
 
 const InquiryModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    name: '', email: '', startDate: '', endDate: '',
-    young: 0, senior: 0, child: 0, budget: ''
+    name: '', 
+    email: '', 
+    destination: '', // नया विकल्प
+    startDate: '', 
+    endDate: '',
+    young: 0, 
+    senior: 0, 
+    child: 0, 
+    budget: ''
   });
 
-  if (!isOpen) return null; // अगर modal बंद है तो कुछ न दिखाएं
+  if (!isOpen) return null;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,9 +24,11 @@ const InquiryModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 1. Supabase के लिए पेलोड तैयार करना (इसमें destination भी है)
     const payload = {
       name: formData.name,
       email: formData.email,
+      destination: formData.destination,
       start_date: formData.startDate || null,
       end_date: formData.endDate || null,
       young: parseInt(formData.young) || 0,
@@ -28,6 +37,7 @@ const InquiryModal = ({ isOpen, onClose }) => {
       budget: formData.budget
     };
 
+    // 2. Supabase टेबल में डेटा सेव करना
     const { error } = await supabase
       .from('inquiries')
       .insert([payload]);
@@ -35,11 +45,31 @@ const InquiryModal = ({ isOpen, onClose }) => {
     if (error) {
       console.error("Error saving data:", error);
       alert("Error: " + error.message);
-    } else {
-      alert("Inquiry Sent Successfully!");
-      setFormData({ name: '', email: '', startDate: '', endDate: '', young: 0, senior: 0, child: 0, budget: '' });
-      onClose(); // सबमिट होने के बाद पॉप-अप बंद कर दें
+      return;
     }
+
+    // 3. WhatsApp पर डेटा भेजने के लिए मैसेज तैयार करना
+    const whatsappNumber = "919782147688"; // देश का कोड (91) सहित
+    const whatsappMessage = `New Tour Inquiry!%0A` +
+      `*Name:* ${formData.name}%0A` +
+      `*Email:* ${formData.email}%0A` +
+      `*Destination:* ${formData.destination}%0A` +
+      `*Start Date:* ${formData.startDate}%0A` +
+      `*End Date:* ${formData.endDate}%0A` +
+      `*Travelers:* Young: ${formData.young}, Senior: ${formData.senior}, Child: ${formData.child}%0A` +
+      `*Budget:* ${formData.budget}`;
+
+    // WhatsApp चैट विंडो खोलना जहाँ मैसेज पहले से लिखा होगा
+    window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+
+    alert("Inquiry Sent Successfully & Saved to Database!");
+    
+    // फॉर्म रीसेट करना और मोडल बंद करना
+    setFormData({ 
+      name: '', email: '', destination: '', startDate: '', endDate: '', 
+      young: 0, senior: 0, child: 0, budget: '' 
+    });
+    onClose();
   };
 
   return (
@@ -60,6 +90,18 @@ const InquiryModal = ({ isOpen, onClose }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" className="p-3 border rounded-lg w-full text-black" required />
             <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email" className="p-3 border rounded-lg w-full text-black" required />
+          </div>
+
+          {/* Desired Location Dropdown / Input */}
+          <div>
+            <label className="text-xs text-gray-500 block mb-1">Desired Location / Package</label>
+            <select name="destination" value={formData.destination} onChange={handleChange} className="w-full p-3 border rounded-lg text-black" required>
+              <option value="">Select Destination</option>
+              <option value="Rajasthan Heritage Tour">Rajasthan Heritage Tour</option>
+              <option value="Kerala Backwaters">Kerala Backwaters</option>
+              <option value="Himalayan Adventure">Himalayan Adventure</option>
+              <option value="Other Custom Location">Other Custom Location</option>
+            </select>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
@@ -99,7 +141,7 @@ const InquiryModal = ({ isOpen, onClose }) => {
           </div>
 
           <button type="submit" className="w-full bg-orange-600 text-white py-3 rounded-lg font-bold hover:bg-orange-700 transition">
-            Send Inquiry
+            Send Inquiry & WhatsApp
           </button>
         </form>
       </div>
