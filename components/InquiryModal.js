@@ -6,7 +6,7 @@ const InquiryModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
     name: '', 
     email: '', 
-    destination: '', // नया विकल्प
+    destination: '', 
     startDate: '', 
     endDate: '',
     young: 0, 
@@ -14,6 +14,9 @@ const InquiryModal = ({ isOpen, onClose }) => {
     child: 0, 
     budget: ''
   });
+
+  // नया स्टेट जब यूजर "Other" चुनेगा
+  const [customDestination, setCustomDestination] = useState('');
 
   if (!isOpen) return null;
 
@@ -24,11 +27,15 @@ const InquiryModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 1. Supabase के लिए पेलोड तैयार करना (इसमें destination भी है)
+    // अगर यूजर ने "Other Custom Location" चुना है, तो फाइनल डेस्टिनेशन में कस्टम टेक्स्ट जाएगा
+    const finalDestination = formData.destination === 'Other Custom Location' 
+      ? customDestination 
+      : formData.destination;
+
     const payload = {
       name: formData.name,
       email: formData.email,
-      destination: formData.destination,
+      destination: finalDestination,
       start_date: formData.startDate || null,
       end_date: formData.endDate || null,
       young: parseInt(formData.young) || 0,
@@ -37,7 +44,7 @@ const InquiryModal = ({ isOpen, onClose }) => {
       budget: formData.budget
     };
 
-    // 2. Supabase टेबल में डेटा सेव करना
+    // Supabase टेबल में डेटा सेव करना
     const { error } = await supabase
       .from('inquiries')
       .insert([payload]);
@@ -48,27 +55,27 @@ const InquiryModal = ({ isOpen, onClose }) => {
       return;
     }
 
-    // 3. WhatsApp पर डेटा भेजने के लिए मैसेज तैयार करना
-    const whatsappNumber = "919782147688"; // देश का कोड (91) सहित
+    // WhatsApp पर डेटा भेजना
+    const whatsappNumber = "919782147688";
     const whatsappMessage = `New Tour Inquiry!%0A` +
       `*Name:* ${formData.name}%0A` +
       `*Email:* ${formData.email}%0A` +
-      `*Destination:* ${formData.destination}%0A` +
+      `*Destination:* ${finalDestination}%0A` +
       `*Start Date:* ${formData.startDate}%0A` +
       `*End Date:* ${formData.endDate}%0A` +
       `*Travelers:* Young: ${formData.young}, Senior: ${formData.senior}, Child: ${formData.child}%0A` +
       `*Budget:* ${formData.budget}`;
 
-    // WhatsApp चैट विंडो खोलना जहाँ मैसेज पहले से लिखा होगा
     window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
 
     alert("Inquiry Sent Successfully & Saved to Database!");
     
-    // फॉर्म रीसेट करना और मोडल बंद करना
+    // फॉर्म रीसेट करना
     setFormData({ 
       name: '', email: '', destination: '', startDate: '', endDate: '', 
       young: 0, senior: 0, child: 0, budget: '' 
     });
+    setCustomDestination('');
     onClose();
   };
 
@@ -92,7 +99,7 @@ const InquiryModal = ({ isOpen, onClose }) => {
             <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Email" className="p-3 border rounded-lg w-full text-black" required />
           </div>
 
-          {/* Desired Location Dropdown / Input */}
+          {/* Desired Location Dropdown */}
           <div>
             <label className="text-xs text-gray-500 block mb-1">Desired Location / Package</label>
             <select name="destination" value={formData.destination} onChange={handleChange} className="w-full p-3 border rounded-lg text-black" required>
@@ -103,6 +110,21 @@ const InquiryModal = ({ isOpen, onClose }) => {
               <option value="Other Custom Location">Other Custom Location</option>
             </select>
           </div>
+
+          {/* अगर यूजर "Other Custom Location" चुनेगा, तब यह टेक्स्ट बॉक्स दिखाई देगा */}
+          {formData.destination === 'Other Custom Location' && (
+            <div>
+              <label className="text-xs text-orange-600 font-semibold block mb-1">Type Your Custom Destination</label>
+              <input 
+                type="text" 
+                value={customDestination} 
+                onChange={(e) => setCustomDestination(e.target.value)} 
+                placeholder="Enter city, state or country name" 
+                className="p-3 border-2 border-orange-400 rounded-lg w-full text-black bg-orange-50" 
+                required 
+              />
+            </div>
+          )}
           
           <div className="grid grid-cols-2 gap-4">
             <div>
