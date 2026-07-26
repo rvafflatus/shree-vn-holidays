@@ -44,7 +44,7 @@ export default function AdminDashboard() {
     }, {})).sort((a: any, b: any) => b[1] - a[1])[0]?.[0] || 'N/A' : 'N/A';
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 md:p-10 pt-24">
+    <div className="min-h-screen bg-gray-100 p-6 md:p-10 pt-28"> {/* यहाँ pt-28 से नेविगेशन बार की ओवरलैपिंग खत्म हो जाएगी */}
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* --- HEADER TITLE --- */}
