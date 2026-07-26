@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
 export default function AdminDashboard() {
-  const [leads, setLeads] = useState([]);
+  const [leads, setLeads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterStatus, setFilterStatus] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
 
   // डेटाबेस से लीड्स फेच करना
@@ -28,23 +27,8 @@ export default function AdminDashboard() {
     setLoading(false);
   };
 
-  // लीड्स की स्टेट्स अपडेट करना (जैसे New से Confirmed करना)
-  const updateStatus = async (id, newStatus) => {
-    const { error } = await supabase
-      .from('inquiries')
-      .update({ status: newStatus }) // ध्यान दें: supabase टेबल में status कॉलम होना चाहिए या आप इसे अपने हिसाब से रख सकते हैं
-      .eq('id', id);
-
-    if (!error) {
-      fetchLeads();
-    } else {
-      // अगर कॉलम नहीं भी है तो लोकल स्टेट अपडेट कर लें
-      setLeads(leads.map(lead => lead.id === id ? { ...lead, status: newStatus } : lead));
-    }
-  };
-
   // फिल्टर और सर्च लॉजिक
-  const filteredLeads = leads.filter(lead => {
+  const filteredLeads = leads.filter((lead: any) => {
     const matchesSearch = lead.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           lead.destination?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           lead.email?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -54,10 +38,10 @@ export default function AdminDashboard() {
   // इनसाइट्स / मेट्रिक्स कैलकुलेशन
   const totalLeads = leads.length;
   const popularDestination = leads.length > 0 ? 
-    Object.entries(leads.reduce((acc, lead) => {
+    Object.entries(leads.reduce((acc: any, lead: any) => {
       acc[lead.destination] = (acc[lead.destination] || 0) + 1;
       return acc;
-    }, {})).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A' : 'N/A';
+    }, {})).sort((a: any, b: any) => b[1] - a[1])[0]?.[0] || 'N/A' : 'N/A';
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10 pt-24">
@@ -141,7 +125,7 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 text-sm">
-                  {filteredLeads.map((lead) => (
+                  {filteredLeads.map((lead: any) => (
                     <tr key={lead.id} className="hover:bg-blue-50/40 transition">
                       <td className="p-4">
                         <div className="font-bold text-blue-950">{lead.name}</div>
