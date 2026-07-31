@@ -1,4 +1,5 @@
-'use client'; // यह जरूरी है क्योंकि हम Logout के लिए बटन का इस्तेमाल कर रहे हैं
+'use client'; // यह जरूरी है क्योंकि हम Logout और Interactivity के लिए हुक इस्तेमाल कर रहे हैं
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
@@ -11,6 +12,37 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     router.push('/login'); // लॉगआउट के बाद सीधे लॉगिन पेज पर भेजें
     router.refresh();
   };
+
+  // ऑटो-लॉगआउट (Inactivity Logout) लॉजिक
+  useEffect(() => {
+    // 15 मिनट का समय (15 * 60 * 1000 मिलीसेकंड = 900,000 ms)
+    const INACTIVITY_LIMIT = 15 * 60 * 1000;
+    let timeoutId: NodeJS.Timeout;
+
+    const resetTimer = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleLogout, INACTIVITY_LIMIT);
+    };
+
+    // जिन गतिविधियों पर नजर रखनी है
+    const events = ['mousemove', 'keydown', 'mousedown', 'scroll', 'touchstart'];
+
+    // इवेंट्स सुनना शुरू करें
+    events.forEach((event) => {
+      window.addEventListener(event, resetTimer);
+    });
+
+    // पहली बार टाइमर चालू करें
+    resetTimer();
+
+    // जब कंपोनेंट हटे तो क्लीनअप करें
+    return () => {
+      clearTimeout(timeoutId);
+      events.forEach((event) => {
+        window.removeEventListener(event, resetTimer);
+      });
+    };
+  }, [router]);
 
   return (
     <div className="flex min-h-screen">
