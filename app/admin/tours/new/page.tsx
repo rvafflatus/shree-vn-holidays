@@ -20,6 +20,9 @@ export default function NewTour() {
         duration: formData.get('duration'),
         category: formData.get('category'),
         image_url: formData.get('image_url'),
+        slug: formData.get('slug'),
+        seo_title: formData.get('seo_title'),
+        seo_description: formData.get('seo_description'),
       },
     ]);
 
@@ -33,7 +36,7 @@ export default function NewTour() {
 
   return (
     <main className="max-w-2xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">नया टूर जोड़ें</h1>
+      <h1 className="text-2xl font-bold mb-6">नया टूर जोड़ें</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input name="title" placeholder="टूर का नाम" className="w-full p-3 border rounded" required />
         <textarea name="description" placeholder="विवरण (Description)" className="w-full p-3 border rounded" required />
@@ -41,8 +44,17 @@ export default function NewTour() {
         <input name="duration" placeholder="अवधि (जैसे: 3 Days)" className="w-full p-3 border rounded" required />
         <input name="category" placeholder="कैटेगरी (जैसे: Adventure)" className="w-full p-3 border rounded" required />
         <input name="image_url" placeholder="इमेज URL" className="w-full p-3 border rounded" required />
+        
+        {/* SEO Fields Section */}
+        <div className="border-t pt-4 mt-4 space-y-4">
+          <h3 className="font-semibold text-gray-700">SEO Settings (सर्च इंजन ऑप्टिमाइज़ेशन)</h3>
+          <input name="slug" placeholder="URL Slug (जैसे: jaisalmer-desert-safari)" className="w-full p-3 border rounded bg-gray-50" required />
+          <input name="seo_title" placeholder="SEO Title (गूगल पर दिखने वाला टाइटल)" className="w-full p-3 border rounded" />
+          <textarea name="seo_description" placeholder="SEO Description (गूगल पर दिखने वाला छोटा विवरण)" className="w-full p-3 border rounded" rows={2} />
+        </div>
+
         <button type="submit" disabled={loading} className="w-full bg-blue-900 text-white p-3 rounded font-bold">
-          {loading ? "जुड़ रहा है..." : "टूर सेव करें"}
+          {loading ? "जुड़ रहा है..." : "टूर सेव करें"}
         </button>
       </form>
     </main>
