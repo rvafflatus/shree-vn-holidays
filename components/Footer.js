@@ -20,31 +20,9 @@ const Footer = () => {
       <div className="absolute inset-0 z-0 bg-blue-900/80"></div>
 
       {/* 3. Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        {/* Brand / Logo Info */}
-        <div>
-          <div className="mb-4 -ml-2 bg-white/10 p-2 rounded-xl backdrop-blur-sm inline-block">
-            <Image 
-              src="/logo.png" // यदि आपकी फाइल .jpg है तो इसे "/logo.jpg" कर दें
-              alt="DesiTrails Logo"
-              width={140}
-              height={140}
-              className="object-contain w-auto h-auto rounded-full" 
-              priority
-            />
-          </div>
-          <p className="text-sm text-gray-200">
-            Explore, Experience, Embrace India.
-          </p>
-          <div className="flex gap-4 mt-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaFacebook size={24} /></a>
-            <a href="https://wa.me/919782147688" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaWhatsapp size={24} /></a>
-            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaMapMarkerAlt size={24} /></a>
-          </div>
-        </div>
-
-        {/* Links */}
+        {/* Links Column 1 */}
         <div>
           <h4 className="font-semibold mb-4 text-orange-400">Company</h4>
           <ul className="space-y-2 text-sm text-gray-200">
@@ -55,7 +33,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Support */}
+        {/* Support Column 2 */}
         <div>
           <h4 className="font-semibold mb-4 text-orange-400">Support</h4>
           <ul className="space-y-2 text-sm text-gray-200">
@@ -64,6 +42,28 @@ const Footer = () => {
             <li><a href="tel:+919782147688" className="hover:text-orange-400 transition">+91 9782147688</a></li>
             <li><a href="mailto:rv.afflatus@gmail.com" className="hover:text-orange-400 transition">rv.afflatus@gmail.com</a></li>
           </ul>
+        </div>
+
+        {/* Brand / Logo Info (Right Side) */}
+        <div className="flex flex-col items-start md:items-end text-left md:text-right">
+          <div className="mb-4 bg-white/10 p-2 rounded-xl backdrop-blur-sm inline-block">
+            <Image 
+              src="/logo.png" // यदि आपकी फाइल .jpg है तो इसे "/logo.jpg" कर दें
+              alt="DesiTrails Logo"
+              width={140}
+              height={140}
+              className="object-contain w-auto h-auto rounded-full" 
+              priority
+            />
+          </div>
+          <p className="text-sm text-gray-200 mb-4">
+            Explore, Experience, Embrace India.
+          </p>
+          <div className="flex gap-4">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaFacebook size={24} /></a>
+            <a href="https://wa.me/919782147688" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaWhatsapp size={24} /></a>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaMapMarkerAlt size={24} /></a>
+          </div>
         </div>
 
       </div>
