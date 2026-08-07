@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaFacebook, FaWhatsapp, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer = () => {
@@ -9,7 +10,7 @@ const Footer = () => {
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/adventure-bg.jpg')", // अपनी इमेज का नाम यहाँ सही रखें
+          backgroundImage: "url('/adventure-bg.jpg')", 
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -21,15 +22,20 @@ const Footer = () => {
       {/* 3. Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
         
-        {/* Company Info */}
+        {/* Brand / Logo Info */}
         <div>
-          <div className="flex items-center gap-0.5 mb-4">
-            <span className="text-2xl font-black tracking-tight text-white">desi</span>
-            <span className="text-2xl font-black tracking-tight text-orange-400">trails</span>
-            <span className="text-xs font-bold text-gray-300 self-end mb-1 ml-0.5">.in</span>
+          <div className="mb-4 -ml-2 bg-white/10 p-2 rounded-xl backdrop-blur-sm inline-block">
+            <Image 
+              src="/logo.png" // यदि आपकी फाइल .jpg है तो इसे "/logo.jpg" कर दें
+              alt="DesiTrails Logo"
+              width={140}
+              height={140}
+              className="object-contain w-auto h-auto rounded-full" 
+              priority
+            />
           </div>
           <p className="text-sm text-gray-200">
-            Explore the beauty, heritage, and incredible culture of India with us. Your trusted partner for travel and events.
+            Explore, Experience, Embrace India.
           </p>
           <div className="flex gap-4 mt-4">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaFacebook size={24} /></a>
