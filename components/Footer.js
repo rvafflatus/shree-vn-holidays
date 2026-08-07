@@ -15,7 +15,7 @@ const Footer = () => {
         }}
       ></div>
 
-      {/* 2. Dark Overlay (ये आपके टेक्स्ट को क्लियर दिखाएगा) */}
+      {/* 2. Dark Overlay */}
       <div className="absolute inset-0 z-0 bg-blue-900/80"></div>
 
       {/* 3. Content */}
@@ -23,14 +23,18 @@ const Footer = () => {
         
         {/* Company Info */}
         <div>
-          <h3 className="text-xl font-bold mb-4 text-orange-400">Shree VN Holidays</h3>
+          <div className="flex items-center gap-0.5 mb-4">
+            <span className="text-2xl font-black tracking-tight text-white">desi</span>
+            <span className="text-2xl font-black tracking-tight text-orange-400">trails</span>
+            <span className="text-xs font-bold text-gray-300 self-end mb-1 ml-0.5">.in</span>
+          </div>
           <p className="text-sm text-gray-200">
-            Explore, Dream, Discover with us. Your trusted partner for travel and events.
+            Explore the beauty, heritage, and incredible culture of India with us. Your trusted partner for travel and events.
           </p>
           <div className="flex gap-4 mt-4">
-            <a href="https://facebook.com" target="_blank" className="hover:text-orange-500"><FaFacebook size={24} /></a>
-            <a href="https://wa.me/919782147688" target="_blank" className="hover:text-orange-500"><FaWhatsapp size={24} /></a>
-            <a href="https://maps.google.com" target="_blank" className="hover:text-orange-500"><FaMapMarkerAlt size={24} /></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaFacebook size={24} /></a>
+            <a href="https://wa.me/919782147688" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaWhatsapp size={24} /></a>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition"><FaMapMarkerAlt size={24} /></a>
           </div>
         </div>
 
@@ -38,10 +42,10 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-4 text-orange-400">Company</h4>
           <ul className="space-y-2 text-sm text-gray-200">
-            <li><Link href="/about" className="hover:text-orange-500">About Us</Link></li>
-            <li><Link href="/career" className="hover:text-orange-500">Career</Link></li>
-            <li><Link href="/freelancing" className="hover:text-orange-500">Freelancing</Link></li>
-            <li><Link href="/affiliate" className="hover:text-orange-500">Affiliate Program</Link></li>
+            <li><Link href="/about" className="hover:text-orange-400 transition">About Us</Link></li>
+            <li><Link href="/career" className="hover:text-orange-400 transition">Career</Link></li>
+            <li><Link href="/freelancing" className="hover:text-orange-400 transition">Freelancing</Link></li>
+            <li><Link href="/affiliate" className="hover:text-orange-400 transition">Affiliate Program</Link></li>
           </ul>
         </div>
 
@@ -49,15 +53,17 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-4 text-orange-400">Support</h4>
           <ul className="space-y-2 text-sm text-gray-200">
-            <li><Link href="/inquiry" className="hover:text-orange-500">Inquiry</Link></li>
-            <li><a href="tel:+919782147688" className="hover:text-orange-500">+91 9782147688</a></li>
-            <li><a href="mailto:rv.afflatus@gmail.com" className="hover:text-orange-500">rv.afflatus@gmail.com</a></li>
+            <li><Link href="/tours" className="hover:text-orange-400 transition">Tour Packages</Link></li>
+            <li><Link href="/events" className="hover:text-orange-400 transition">Events</Link></li>
+            <li><a href="tel:+919782147688" className="hover:text-orange-400 transition">+91 9782147688</a></li>
+            <li><a href="mailto:rv.afflatus@gmail.com" className="hover:text-orange-400 transition">rv.afflatus@gmail.com</a></li>
           </ul>
         </div>
+
       </div>
       
-      <div className="relative z-10 text-center mt-12 text-xs text-gray-400 border-t border-blue-700 pt-6">
-        © 2026 Afflatus. All rights reserved.
+      <div className="relative z-10 text-center mt-12 text-xs text-gray-300 border-t border-blue-700 pt-6">
+        © {new Date().getFullYear()} DesiTrails. All rights reserved.
       </div>
     </footer>
   );

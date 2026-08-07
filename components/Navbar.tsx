@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
@@ -20,17 +19,19 @@ const Navbar = () => {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-2.5">
-        {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/logo.png"
-            alt="Shree VN Holidays Logo"
-            width={110}
-            height={40}
-            className="object-contain h-9 w-auto"
-            priority
-          />
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
+        
+        {/* Desitrails Text Logo */}
+        <Link href="/" className="flex items-center gap-0.5 group">
+          <span className="text-2xl font-black tracking-tight text-blue-950">
+            desi
+          </span>
+          <span className="text-2xl font-black tracking-tight text-orange-600">
+            trails
+          </span>
+          <span className="text-xs font-bold text-gray-400 self-end mb-1 ml-0.5">
+            .in
+          </span>
         </Link>
 
         {/* Desktop Navigation Links */}

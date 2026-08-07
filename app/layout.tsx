@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar"; 
-import Footer from "@/components/Footer"; // यहाँ Footer इम्पोर्ट किया
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shree VN Holidays & Events",
-  description: "Explore, Dream, Discover with Shree VN Holidays",
+  title: "DesiTrails - Explore the Beauty of India",
+  description: "Discover handcrafted tour packages, cultural trails, and custom travel experiences across India.",
 };
 
 export default function RootLayout({
@@ -29,10 +29,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
         <Navbar /> 
         <main className="flex-grow">{children}</main>
-        <Footer /> {/* यहाँ Footer जोड़ दिया गया है */}
+        <Footer />
       </body>
     </html>
   );
