@@ -44,6 +44,10 @@ export default function AdminToursPage() {
         price: currentTour.price,
         duration: currentTour.duration,
         description: currentTour.description,
+        slug: currentTour.slug,
+        seo_title: currentTour.seo_title,
+        seo_description: currentTour.seo_description,
+        booking_type: currentTour.booking_type,
       })
       .eq('id', currentTour.id);
 
@@ -97,6 +101,9 @@ export default function AdminToursPage() {
                   <div>
                     <h3 className="text-lg font-bold text-blue-950">{tour.title}</h3>
                     <p className="text-xs text-gray-400 mt-0.5">Duration: {tour.duration}</p>
+                    {tour.booking_type && (
+                      <p className="text-xs font-semibold text-blue-800 mt-1">Type: {tour.booking_type}</p>
+                    )}
                     <p className="text-gray-600 text-sm mt-2 line-clamp-2">{tour.description}</p>
                   </div>
                 </div>
@@ -117,26 +124,44 @@ export default function AdminToursPage() {
 
       {/* Edit Tour Modal */}
       {isEditModalOpen && currentTour && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white w-full max-w-lg p-8 rounded-2xl shadow-2xl relative border border-gray-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="bg-white w-full max-w-xl p-8 rounded-2xl shadow-2xl relative border border-gray-200 my-8 max-h-[90vh] overflow-y-auto">
             <button 
               onClick={() => setIsEditModalOpen(false)}
               className="absolute top-4 right-4 text-gray-500 hover:text-black font-bold text-lg"
             >
               ✕
             </button>
-            <h2 className="text-xl font-bold text-blue-950 mb-4">Edit Tour Package</h2>
+            <h2 className="text-xl font-bold text-blue-950 mb-4">Edit Tour Package & SEO</h2>
             
             <form onSubmit={handleUpdateTour} className="space-y-4">
               <div>
                 <label className="text-xs text-gray-600 font-medium block mb-1">Tour Title</label>
                 <input 
                   type="text" 
-                  value={currentTour.title} 
+                  value={currentTour.title || ''} 
                   onChange={(e) => setCurrentTour({ ...currentTour, title: e.target.value })} 
                   className="w-full p-3 border rounded-lg text-sm text-black"
                   required 
                 />
+              </div>
+
+              {/* Booking Type Dropdown */}
+              <div>
+                <label className="text-xs text-gray-600 font-medium block mb-1">Type of Booking</label>
+                <select 
+                  value={currentTour.booking_type || ''} 
+                  onChange={(e) => setCurrentTour({ ...currentTour, booking_type: e.target.value })}
+                  className="w-full p-3 border rounded-lg text-sm text-black bg-white"
+                >
+                  <option value="">-- बुकिंग का प्रकार चुनें --</option>
+                  <option value="Hotel Booking">Hotel Booking</option>
+                  <option value="Air Booking">Air Booking</option>
+                  <option value="Domestic Tour Package">Domestic Tour Package</option>
+                  <option value="Corporate Events">Corporate Events</option>
+                  <option value="Wedding Planning">Wedding Planning</option>
+                  <option value="Cruise Booking">Cruise Booking</option>
+                </select>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -180,9 +205,42 @@ export default function AdminToursPage() {
                 />
               </div>
 
+              {/* SEO Fields Section inside Edit Modal */}
+              <div className="border-t pt-4 space-y-4">
+                <h3 className="font-semibold text-gray-700 text-sm">SEO Settings</h3>
+                <div>
+                  <label className="text-xs text-gray-600 font-medium block mb-1">URL Slug</label>
+                  <input 
+                    type="text" 
+                    value={currentTour.slug || ''} 
+                    onChange={(e) => setCurrentTour({ ...currentTour, slug: e.target.value })} 
+                    className="w-full p-3 border rounded-lg text-sm text-black bg-gray-50" 
+                    required 
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 font-medium block mb-1">SEO Title</label>
+                  <input 
+                    type="text" 
+                    value={currentTour.seo_title || ''} 
+                    onChange={(e) => setCurrentTour({ ...currentTour, seo_title: e.target.value })} 
+                    className="w-full p-3 border rounded-lg text-sm text-black" 
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-600 font-medium block mb-1">SEO Description</label>
+                  <textarea 
+                    rows={2}
+                    value={currentTour.seo_description || ''} 
+                    onChange={(e) => setCurrentTour({ ...currentTour, seo_description: e.target.value })} 
+                    className="w-full p-3 border rounded-lg text-sm text-black" 
+                  />
+                </div>
+              </div>
+
               <button 
                 type="submit" 
-                className="w-full bg-blue-900 hover:bg-blue-950 text-white py-3 rounded-xl font-bold text-sm transition shadow"
+                className="w-full bg-blue-900 hover:bg-blue-950 text-white py-3 rounded-xl font-bold text-sm transition shadow mt-4"
               >
                 Save Changes
               </button>
