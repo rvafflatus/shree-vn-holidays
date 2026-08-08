@@ -18,12 +18,12 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 transition-all duration-300">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 transition-all duration-300">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-0.5 group">
-          <span className="text-2xl md:text-3xl font-black tracking-tight text-blue-950 group-hover:text-blue-900 transition-colors">
+          <span className="text-2xl md:text-3xl font-black tracking-tight text-blue-950">
             desi
           </span>
           <span className="text-2xl md:text-3xl font-black tracking-tight text-orange-600">
@@ -90,10 +90,10 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu with Smooth Animation Look */}
+      {/* Mobile Dropdown Menu with Larger Font Sizes */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-gray-100 px-6 py-5 shadow-2xl transition-all animate-in slide-in-from-top duration-300">
-          <nav className="flex flex-col gap-2 text-blue-950 font-semibold text-base">
+        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-gray-100 px-6 py-6 shadow-2xl transition-all">
+          <nav className="flex flex-col gap-3 text-blue-950 font-bold text-lg">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -101,14 +101,14 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-between ${
+                  className={`py-3.5 px-5 rounded-xl transition-all duration-200 flex items-center justify-between ${
                     isActive
-                      ? 'text-orange-600 bg-orange-50/80 font-bold shadow-sm border border-orange-100'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600'
+                      ? 'text-orange-600 bg-orange-50 shadow-sm border border-orange-100'
+                      : 'text-gray-800 hover:bg-gray-50 hover:text-orange-600'
                   }`}
                 >
                   <span>{link.name}</span>
-                  {isActive && <span className="w-2 h-2 rounded-full bg-orange-600"></span>}
+                  {isActive && <span className="w-2.5 h-2.5 rounded-full bg-orange-600"></span>}
                 </Link>
               );
             })}
