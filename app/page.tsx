@@ -50,36 +50,69 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 pt-20">
       
-      {/* --- HERO SECTION WITH NATURE GREEN & SCENIC BACKGROUND --- */}
+      {/* --- HERO SECTION WITH SCENIC BANNER & 4 FEATURE CARDS --- */}
       <section 
-        className="relative min-h-[85vh] flex items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-20"
+        className="relative min-h-[85vh] flex flex-col justify-between bg-cover bg-center bg-no-repeat px-6 pt-16 pb-12"
         style={{
-          // यहाँ नेचर/फॉरेस्ट की हाई-क्वालिटी इमेज के साथ एक बैलेंस्ड डार्क-नेचुरल ओवरले दिया गया है ताकि टेक्स्ट साफ़ चमके
-          backgroundImage: `linear-gradient(rgba(10, 40, 25, 0.75), rgba(5, 25, 15, 0.8)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1600&auto=format&fit=crop')`
+          // आपके द्वारा शेयर की गई तस्वीर के जैसी समुद्र/पहाड़ की खूबसूरत बैकग्राउंड इमेज और ओवरले
+          backgroundImage: `linear-gradient(rgba(10, 30, 45, 0.5), rgba(5, 15, 25, 0.6)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop')`
         }}
       >
-        <div className="text-center text-white max-w-4xl z-10 flex flex-col items-center">
-          <span className="bg-orange-600 text-white text-xs md:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 shadow-md">
-            Welcome to Shree VN Holidays
-          </span>
-          
-          {/* डायनेमिक एनिमेटेड स्लोगन */}
-          <h1 className="text-3xl md:text-6xl font-extrabold mb-6 tracking-tight min-h-[90px] md:min-h-[120px] flex items-center justify-center drop-shadow-lg">
-            <span className="text-orange-400 transition-all duration-700">
-              {slogans[currentSloganIndex]}
+        <div className="max-w-7xl mx-auto w-full flex-grow flex items-center">
+          <div className="text-white max-w-3xl z-10 flex flex-col items-start py-10">
+            <span className="bg-orange-600 text-white text-xs md:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 shadow-md">
+              Welcome to Shree VN Holidays & DesiTrails
             </span>
-          </h1>
+            
+            {/* डायनेमिक एनिमेटेड स्लोगन */}
+            <h1 className="text-3xl md:text-6xl font-extrabold mb-6 tracking-tight min-h-[90px] md:min-h-[120px] flex items-center drop-shadow-lg text-left">
+              <span className="text-orange-400 transition-all duration-700">
+                {slogans[currentSloganIndex]}
+              </span>
+            </h1>
 
-          <p className="text-base md:text-xl text-gray-200 mb-8 max-w-2xl font-light leading-relaxed drop-shadow">
-            Your trusted professional partner for custom tour packages, thrilling mountain treks, and seamless family getaways.
-          </p>
+            <p className="text-base md:text-xl text-gray-100 mb-8 max-w-2xl font-light leading-relaxed drop-shadow text-left">
+              Unforgettable holidays and events crafted just for you! Your trusted professional partner for custom tour packages and seamless getaways.
+            </p>
 
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-xl font-bold shadow-2xl transition transform hover:-translate-y-1 text-lg border border-orange-500"
-          >
-            Plan Your Adventure Now
-          </button>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 rounded-xl font-bold shadow-2xl transition transform hover:-translate-y-1 text-lg border border-orange-500"
+            >
+              Plan Your Adventure Now ✈️
+            </button>
+          </div>
+        </div>
+
+        {/* --- नीचे दिए गए 4 फीचर्स (Exciting Destinations, Well Planned Events, आदि) --- */}
+        <div className="max-w-7xl mx-auto w-full relative z-10 mt-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/40 text-blue-950">
+            
+            <div className="text-center space-y-1">
+              <div className="text-2xl">🌍</div>
+              <h4 className="font-bold text-xs md:text-sm tracking-wide">EXCITING</h4>
+              <p className="text-xs md:text-sm font-serif italic text-orange-600">Destinations</p>
+            </div>
+
+            <div className="text-center space-y-1 border-l border-gray-200">
+              <div className="text-2xl">📅</div>
+              <h4 className="font-bold text-xs md:text-sm tracking-wide">WELL PLANNED</h4>
+              <p className="text-xs md:text-sm font-serif italic text-orange-600">Events</p>
+            </div>
+
+            <div className="text-center space-y-1 border-l border-gray-200">
+              <div className="text-2xl">🧳</div>
+              <h4 className="font-bold text-xs md:text-sm tracking-wide">HASSLE-FREE</h4>
+              <p className="text-xs md:text-sm font-serif italic text-orange-600">Travel</p>
+            </div>
+
+            <div className="text-center space-y-1 border-l border-gray-200">
+              <div className="text-2xl">❤️</div>
+              <h4 className="font-bold text-xs md:text-sm tracking-wide">MEMORIES THAT</h4>
+              <p className="text-xs md:text-sm font-serif italic text-orange-600">Last Forever</p>
+            </div>
+
+          </div>
         </div>
       </section>
 
