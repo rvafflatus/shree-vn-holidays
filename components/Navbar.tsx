@@ -18,12 +18,12 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 transition-all duration-300">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         
-        {/* Desitrails Text Logo (मोबाइल और लैपटॉप दोनों पर बड़ा और साफ़) */}
+        {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-0.5 group">
-          <span className="text-2xl md:text-3xl font-black tracking-tight text-blue-950">
+          <span className="text-2xl md:text-3xl font-black tracking-tight text-blue-950 group-hover:text-blue-900 transition-colors">
             desi
           </span>
           <span className="text-2xl md:text-3xl font-black tracking-tight text-orange-600">
@@ -42,28 +42,31 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`transition-colors duration-200 ${
+                className={`relative py-1 transition-colors duration-200 ${
                   isActive
                     ? 'text-orange-600 font-bold'
-                    : 'hover:text-orange-600'
+                    : 'text-gray-700 hover:text-orange-600'
                 }`}
               >
                 {link.name}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-600 rounded-full animate-pulse" />
+                )}
               </Link>
             );
           })}
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Hamburger Button */}
         <button
           onClick={toggleMenu}
           type="button"
           aria-label="Toggle Navigation Menu"
           aria-expanded={isOpen}
-          className="md:hidden p-2 rounded-md text-blue-950 hover:bg-gray-100 focus:outline-none"
+          className="md:hidden p-2.5 rounded-xl text-blue-950 bg-gray-50 hover:bg-gray-100 focus:outline-none transition-colors shadow-sm"
         >
           <svg
-            className="w-7 h-7"
+            className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -72,14 +75,14 @@ const Navbar = () => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={2.5}
                 d="M6 18L18 6M6 6l12 12"
               />
             ) : (
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={2.5}
                 d="M4 6h16M4 12h16M4 18h16"
               />
             )}
@@ -87,10 +90,10 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu (यहाँ फॉन्ट साइज़ को बड़ा और पढ़ने में आसान किया गया है) */}
+      {/* Mobile Dropdown Menu with Smooth Animation Look */}
       {isOpen && (
-        <div className="md:hidden bg-white border-b border-gray-100 px-6 pt-3 pb-5 shadow-lg">
-          <nav className="flex flex-col gap-4 text-blue-950 font-semibold text-base">
+        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-gray-100 px-6 py-5 shadow-2xl transition-all animate-in slide-in-from-top duration-300">
+          <nav className="flex flex-col gap-2 text-blue-950 font-semibold text-base">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -98,13 +101,14 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`py-2 px-3 rounded-lg transition-colors duration-200 ${
+                  className={`py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-between ${
                     isActive
-                      ? 'text-orange-600 bg-orange-50 font-bold'
-                      : 'hover:bg-gray-50 hover:text-orange-600'
+                      ? 'text-orange-600 bg-orange-50/80 font-bold shadow-sm border border-orange-100'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600'
                   }`}
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  {isActive && <span className="w-2 h-2 rounded-full bg-orange-600"></span>}
                 </Link>
               );
             })}
